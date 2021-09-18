@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzisFood.MQ.Abstractions", "AzisFood.MQ.Abstractions\AzisFood.MQ.Abstractions.csproj", "{AB7143A0-ACD2-4BDE-BF46-2EFD5670F1FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzisFood.MQ.Rabbit", "AzisFood.MQ.Rabbit\AzisFood.MQ.Rabbit.csproj", "{D4A8D209-1571-470B-925B-8431A45D922B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB7143A0-ACD2-4BDE-BF46-2EFD5670F1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7143A0-ACD2-4BDE-BF46-2EFD5670F1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7143A0-ACD2-4BDE-BF46-2EFD5670F1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7143A0-ACD2-4BDE-BF46-2EFD5670F1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A8D209-1571-470B-925B-8431A45D922B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A8D209-1571-470B-925B-8431A45D922B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A8D209-1571-470B-925B-8431A45D922B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A8D209-1571-470B-925B-8431A45D922B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
