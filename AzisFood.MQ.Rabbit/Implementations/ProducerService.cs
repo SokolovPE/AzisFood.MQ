@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AzisFood.MQ.Abstractions.Attributes;
 using AzisFood.MQ.Abstractions.Interfaces;
@@ -25,7 +26,7 @@ namespace AzisFood.MQ.Rabbit.Implementations
             _busTopic = customAttributes.FirstOrDefault();
             _entityName = typeof(T).Name;
         }
-        public async Task SendEvent(string source = "", EventType eventType = EventType.Recache, object payload = null)
+        public async Task SendEvent(string source = "", EventType eventType = EventType.Recache, object payload = null, CancellationToken token = default)
         {
             _logger.LogInformation(
                 $"Requested event {eventType.ToString()} push to Message Bus from {source} with payload: {JsonConvert.SerializeObject(payload)}");
@@ -43,8 +44,13 @@ namespace AzisFood.MQ.Rabbit.Implementations
                 var endpoint =
                     await _sendEndpointProvider.GetSendEndpoint(
                         new Uri(_busTopic.FullName(eventType.ToString())));
-                await endpoint.Send(new BusSignal(source, payloadJson));
+                await endpoint.Send(new BusSignal(source, payloadJson), token);
                 _logger.LogInformation($"Event {eventType.ToString()} fired succeeded for {_entityName}");
+            }
+            catch (OperationCanceledException)
+            {
+                // Throw cancelled operation, do not catch
+                throw;
             }
             catch (Exception ex)
             {
