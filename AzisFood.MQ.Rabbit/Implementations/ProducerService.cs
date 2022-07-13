@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using AzisFood.MQ.Abstractions.Attributes;
@@ -7,7 +8,6 @@ using AzisFood.MQ.Abstractions.Interfaces;
 using AzisFood.MQ.Abstractions.Models;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace AzisFood.MQ.Rabbit.Implementations
 {
@@ -29,7 +29,7 @@ namespace AzisFood.MQ.Rabbit.Implementations
         public async Task SendEvent(string source = "", EventType eventType = EventType.Recache, object payload = null, CancellationToken token = default)
         {
             _logger.LogInformation(
-                $"Requested event {eventType.ToString()} push to Message Bus from {source} with payload: {JsonConvert.SerializeObject(payload)}");
+                $"Requested event {eventType.ToString()} push to Message Bus from {source} with payload: {JsonSerializer.Serialize(payload)}");
             try
             {
                 if (_busTopic == null || string.IsNullOrEmpty(_busTopic.Name) ||
@@ -40,7 +40,7 @@ namespace AzisFood.MQ.Rabbit.Implementations
                     return;
                 }
 
-                var payloadJson = payload == null ? string.Empty : JsonConvert.SerializeObject(payload);
+                var payloadJson = payload == null ? string.Empty : JsonSerializer.Serialize(payload);
                 var endpoint =
                     await _sendEndpointProvider.GetSendEndpoint(
                         new Uri(_busTopic.FullName(eventType.ToString())));
